@@ -12,18 +12,22 @@ module.exports = {
 
     required_body.forEach(prop => {
       if (!req.body[prop]) {
-        return res
-          .status(406)
-          .send(`Required ${prop} property on the request body was missing.`)
+        let user_friendly_error = prop.replace('_', ' ')
+
+        return res.status(406).send({
+          error: `Required ${prop} property on the request body was missing.`,
+          message: `Please try again. The ${user_friendly_error} field is required.`
+        })
       }
     })
 
     if (password !== confirm_password) {
-      return res
-        .status(406)
-        .send(
-          `password and confirm_password on the request body did not match.`
-        )
+      return res.status(406).send({
+        error: `password and confirm_password on the request body did not match.`,
+        message: `Please try again. The passwords did not match.`
+      })
     }
+
+    next()
   }
 }

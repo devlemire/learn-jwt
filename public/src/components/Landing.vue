@@ -1,9 +1,12 @@
 <template>
-  <section id="landing-container">
-    <div id="landing-card">
+  <section id="landing-container" class="black-page v-h-center-page">
+    <div class="card">
       <p>JWT Auth Example</p>
-      <button>Login</button>
-      <button>Register</button>
+
+      <section id="landing-actions">
+        <button>Login</button>
+        <button @click="$router.push('/register')">Register</button>
+      </section>
     </div>
   </section>
 </template>
@@ -32,25 +35,15 @@ export default {
 </script>
 
 <style scoped>
-#landing-container {
+#landing-actions {
   width: 100%;
-  min-height: 100vh;
-  background-color: var(--black);
-  padding: 24px;
-
   display: flex;
   justify-content: center;
-  align-items: center;
-}
-
-#landing-card {
-  width: 300px;
-  padding: 24px;
-  background-color: var(--white);
+  align-items: flex-start;
 }
 
 button:not(:last-child) {
-  margin-right: 24px;
+  margin-right: 16px;
 }
 
 p {
