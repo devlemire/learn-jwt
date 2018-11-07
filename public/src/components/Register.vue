@@ -1,6 +1,6 @@
 <template>
-  <section id="dashboard-container">
-    <p>You are authed!</p>
+  <section id="register-container">
+    <p>Register Here</p>
   </section>
 </template>
 
@@ -10,5 +10,3 @@ export default {}
 
 <style scoped>
 </style>
-
-

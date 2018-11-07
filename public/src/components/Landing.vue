@@ -13,18 +13,19 @@ import axios from 'axios'
 
 export default {
   created() {
-    this.testApi()
+    this.checkForUser()
   },
   methods: {
-    testApi() {
-      axios
-        .get('/api/user/me')
-        .then(r => {
-          console.log('hit', r)
-        })
-        .catch(err => {
-          console.error('not authenticated')
-        })
+    async checkForUser() {
+      if (this.$store.getters.user === undefined) {
+        try {
+          const { data: user } = await axios.get('/api/user/me')
+          this.$store.commit('setUser', user)
+          this.$router.push('/dashboard')
+        } catch (err) {}
+      } else {
+        this.$router.push('/dashboard')
+      }
     }
   }
 }

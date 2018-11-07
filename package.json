@@ -6,6 +6,7 @@
   "author": "James Lemire <webdev.jameslemire@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "bcrypt": "^3.0.2",
     "concurrently": "^4.0.1",
     "dotenv": "^6.1.0",
     "express": "^4.16.4",

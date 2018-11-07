@@ -5,5 +5,7 @@ module.exports = {
     }
 
     res.sendStatus(403)
-  }
+  },
+
+  register: (req, res) => {}
 }
