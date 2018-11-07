@@ -9,7 +9,10 @@ const { PORT, NODE_ENV } = process.env
 
 // Express App
 const app = express()
+
+// Ready JSON from requests
 app.use(express.json())
+// Log incoming API requests
 app.use(morgan('dev'))
 
 // Server Routes
