@@ -1,10 +1,10 @@
 {
   "users": [
     {
-      "username": "test",
-      "first_name": "James",
-      "last_name": "Lemire",
-      "password": "$2b$10$IMpXAzOHdJiQ3jSNariNZudAnRp6sLTAjaz9pgMAVjcaGPe3UQlHG"
+      "username": "testmcgee",
+      "first_name": "Test",
+      "last_name": "McGee",
+      "password": "$2b$10$DSiz1GBOXBJVZVKRZgw5UugYEQLIYiqHeC352.55bHKS7n3S/oDxm"
     }
   ]
 }

@@ -2,6 +2,7 @@ const low = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
 const bcrypt = require('bcrypt')
 const saltRounds = 10
+const jwt_utils = require('../utils/jwt_utils')
 
 module.exports = {
   me: (req, res) => {
@@ -49,6 +50,10 @@ module.exports = {
 
     // Remove the password from the user before sending it back to the client
     delete created_user.password
+
+    // Create a signed JWT token. And add it as a cookie
+    jwt_utils.sign(res, created_user)
+
     res.send({ user: created_user })
   }
 }

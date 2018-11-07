@@ -26,11 +26,11 @@ export default {
   data() {
     return {
       user: {
-        first_name: '',
-        last_name: '',
-        username: '',
-        password: '',
-        confirm_password: ''
+        first_name: 'Test',
+        last_name: 'McGee',
+        username: 'testmcgee',
+        password: 'test',
+        confirm_password: 'test'
       }
     }
   },
