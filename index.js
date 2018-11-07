@@ -2,6 +2,7 @@
 require('dotenv').config({ path: `${__dirname}/.env` })
 const express = require('express')
 const path = require('path')
+const morgan = require('morgan')
 
 // ENV variables
 const { PORT, NODE_ENV } = process.env
@@ -9,6 +10,7 @@ const { PORT, NODE_ENV } = process.env
 // Express App
 const app = express()
 app.use(express.json())
+app.use(morgan('dev'))
 
 // Server Routes
 app.use('/api', require('./routes/index'))
