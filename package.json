@@ -1,0 +1,19 @@
+{
+  "name": "learn-jwt",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:devlemire/learn-jwt.git",
+  "author": "James Lemire <webdev.jameslemire@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "concurrently": "^4.0.1",
+    "dotenv": "^6.1.0",
+    "express": "^4.16.4"
+  },
+  "scripts": {
+    "dev": "concurrently \"nodemon\" \"cd public && yarn start\""
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.6"
+  }
+}
