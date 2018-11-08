@@ -6,6 +6,19 @@ const jwt_utils = require('../utils/jwt_utils')
 
 module.exports = {
   me: (req, res) => {
+    jwt_utils.cookieParser(req)
+
+    console.log('devmtnJwt:', req.cookies.devmtnJwt)
+    // A JWT already exists
+    if (req.cookies.devmtnJwt) {
+      const user = jwt_utils.verify(req.cookies.devmtnJwt)
+
+      console.log('The user is:', user)
+      if (user === undefined) return res.sendStatus(403)
+
+      return res.send(user)
+    }
+
     if (req.user || (req.session && req.session.user)) {
       return res.send(req.user || req.session.user)
     }

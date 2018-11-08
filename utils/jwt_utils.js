@@ -14,5 +14,22 @@ module.exports = {
       domain: 'localhost',
       httpOnly: true
     })
+  },
+  verify: token => {
+    return JWT.verify(token, publicKey, (err, decoded) => {
+      if (err) return undefined
+      return decoded
+    })
+  },
+  cookieParser: req => {
+    let cookie = req.headers.cookie
+    let cookieArr = cookie ? cookie.split('; ') : []
+    req.cookies = {}
+    cookieArr.forEach(cookie => {
+      let cookieSplit = cookie.split('=')
+      let prop = cookieSplit[0]
+      let value = cookieSplit[1]
+      req.cookies[prop] = value
+    })
   }
 }
