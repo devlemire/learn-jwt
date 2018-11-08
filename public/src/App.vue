@@ -68,6 +68,7 @@ button {
   padding: 8px 16px;
   border: none;
   border-radius: 3px;
+  cursor: pointer;
 }
 
 .button-blue {

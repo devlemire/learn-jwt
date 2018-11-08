@@ -4,7 +4,7 @@
       <p>JWT Auth Example</p>
 
       <section id="landing-actions">
-        <button>Login</button>
+        <button @click="$router.push('/login')">Login</button>
         <button @click="$router.push('/register')">Register</button>
       </section>
     </div>

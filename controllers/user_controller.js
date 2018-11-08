@@ -8,19 +8,12 @@ module.exports = {
   me: (req, res) => {
     jwt_utils.cookieParser(req)
 
-    console.log('devmtnJwt:', req.cookies.devmtnJwt)
     // A JWT already exists
     if (req.cookies.devmtnJwt) {
       const user = jwt_utils.verify(req.cookies.devmtnJwt)
-
-      console.log('The user is:', user)
       if (user === undefined) return res.sendStatus(403)
 
       return res.send(user)
-    }
-
-    if (req.user || (req.session && req.session.user)) {
-      return res.send(req.user || req.session.user)
     }
 
     res.sendStatus(403)
@@ -68,5 +61,42 @@ module.exports = {
     jwt_utils.sign(res, created_user)
 
     res.send({ user: created_user })
+  },
+
+  login: async (req, res) => {
+    const { username, password } = req.body
+    const adapter = new FileSync('db.json')
+    const db = low(adapter)
+
+    let user = db
+      .get('users')
+      .find({ username })
+      .value()
+
+    if (user === undefined) {
+      return res
+        .status(406)
+        .send({ message: 'Please try again. The username doesnt exist.' })
+    }
+
+    console.log('The user is:', user)
+
+    const match = await bcrypt.compare(password, user.password)
+
+    if (!match) {
+      return res.status(406).send({
+        message: 'Please try again. The username and password did not match.'
+      })
+    }
+
+    delete user.password
+
+    jwt_utils.sign(res, user)
+    res.sendStatus(200)
+  },
+
+  logout: async (req, res) => {
+    res.clearCookie('devmtnJwt')
+    res.redirect('/')
   }
 }

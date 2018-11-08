@@ -29,5 +29,20 @@ module.exports = {
     }
 
     next()
+  },
+  login: (req, res, next) => {
+    const { username, password } = req.body
+
+    if (!username)
+      return res
+        .status(406)
+        .send('Required username property on the request body was missing.')
+
+    if (!password)
+      return res
+        .status(406)
+        .send('Required password property on the request body was missing.')
+
+    next()
   }
 }
