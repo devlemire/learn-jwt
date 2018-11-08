@@ -20,6 +20,7 @@ module.exports = {
   },
 
   register: async (req, res) => {
+    // Make a connection to our lowdb
     const adapter = new FileSync('db.json')
     const db = low(adapter)
 
@@ -32,14 +33,17 @@ module.exports = {
       .value()
 
     if (user !== undefined) {
+      // The username was taken
       return res
         .status(406)
         .send({ message: 'Please try again. The username is already taken.' })
     }
 
+    // Create a hashed version of the password
     const salt = await bcrypt.genSalt(saltRounds)
     const hashed_password = await bcrypt.hash(password, salt)
 
+    // Add the user with the hashed password to our lowdb
     db.get('users')
       .push({
         username,
@@ -49,6 +53,7 @@ module.exports = {
       })
       .write()
 
+    // Regrab that user from our lowdb
     let created_user = db
       .get('users')
       .find({ username })
@@ -64,21 +69,27 @@ module.exports = {
   },
 
   login: async (req, res) => {
-    const { username, password } = req.body
+    // Make a connection to our lowdb
     const adapter = new FileSync('db.json')
     const db = low(adapter)
 
+    // Destructure required information from body
+    const { username, password } = req.body
+
+    // Get the user from the lowdb
     let user = db
       .get('users')
       .find({ username })
       .value()
 
+    // Check to see that the user exists
     if (user === undefined) {
       return res
         .status(406)
         .send({ message: 'Please try again. The username doesnt exist.' })
     }
 
+    // Make sure the passwords match
     const match = await bcrypt.compare(password, user.password)
 
     if (!match) {
@@ -87,8 +98,10 @@ module.exports = {
       })
     }
 
+    // Delete the password from the user before making a JWT cookie
     delete user.password
 
+    // Create sign and create a JWT cookie
     jwt_utils.sign(res, user)
     res.sendStatus(200)
   },
