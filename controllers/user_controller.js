@@ -79,8 +79,6 @@ module.exports = {
         .send({ message: 'Please try again. The username doesnt exist.' })
     }
 
-    console.log('The user is:', user)
-
     const match = await bcrypt.compare(password, user.password)
 
     if (!match) {
